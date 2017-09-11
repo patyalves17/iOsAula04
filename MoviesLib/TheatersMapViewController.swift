@@ -26,6 +26,31 @@ class TheatersMapViewController: UIViewController {
         loadXML()
         requestUserLocationAuthorization()
     }
+    
+    func getRoute(destination: CLLocationCoordinate2D){
+        let request = MKDirectionsRequest()
+        request.destination = MKMapItem(placemark: MKPlacemark(coordinate: destination))
+        request.source = MKMapItem(placemark: MKPlacemark(coordinate: locationManager.location!.coordinate))
+        
+        let direction = MKDirections(request: request)
+        direction.calculate{(response: MKDirectionsResponse?, error: Error?) in
+            if error == nil{
+                guard let response = response else {return}
+                let route = response.routes.first!
+                print("Distancia: ", route.distance)
+                print("Duracao: ", route.expectedTravelTime)
+                print("Nome: ", route.name)
+                
+                for step in route.steps{
+                    print("Em \(step.distance) metros, \(step.instructions)")
+                }
+                
+            }else{
+                print(error!.localizedDescription)
+            }
+        }
+        
+    }
 
     func requestUserLocationAuthorization() {
         if CLLocationManager.locationServicesEnabled(){
@@ -124,12 +149,41 @@ extension TheatersMapViewController: MKMapViewDelegate {
                 annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "Theater")
                 annotationView.image = UIImage(named: "theaterIcon")
                 annotationView.canShowCallout = true
+                
+                
+                let btLeft = UIButton(frame:CGRect(x: 0, y: 0, width: 30, height: 30))
+                btLeft.setImage(UIImage(named: "car"), for: .normal)
+                annotationView.leftCalloutAccessoryView=btLeft
+                
+                let btRight = UIButton(type: .infoLight)
+                annotationView.rightCalloutAccessoryView=btRight
+                
+                
+            } else {
+                annotationView.annotation = annotation
+            }
+        } else if annotation is MKPointAnnotation {
+            annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "POI")
+            if annotationView == nil {
+                annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "POI")
+                (annotationView as! MKPinAnnotationView).pinTintColor = .blue
+                (annotationView as! MKPinAnnotationView).animatesDrop = true
+                annotationView.canShowCallout = true
             } else {
                 annotationView.annotation = annotation
             }
         }
         
         return annotationView
+    }
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        if control == view.leftCalloutAccessoryView {
+            print("Traça a rota ao cinema")
+            getRoute(destination: view.annotation!.coordinate) 
+        }else{
+            print("Mostra a rota ao cinema")
+        }
     }
 }
 
@@ -145,14 +199,35 @@ extension TheatersMapViewController: CLLocationManagerDelegate {
     
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         print(userLocation.location!.speed)
-        let region = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 500, 500)
-        mapView.setRegion(region, animated: true)
+      //  let region = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 500, 500)
+       // mapView.setRegion(region, animated: true)
     }
 }
 
 extension TheatersMapViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        //searchBar.text
+        let request = MKLocalSearchRequest()
+        request.naturalLanguageQuery=searchBar.text
+        request.region = mapView.region
+        let search = MKLocalSearch(request: request)
+        search.start { (response: MKLocalSearchResponse?, error: Error?) in
+            if error == nil {
+                guard let response = response else {return}
+                var placeMarks: [MKPointAnnotation]=[]
+                for item in response.mapItems{
+                    let annotation = MKPointAnnotation()
+                    annotation.coordinate = item.placemark.coordinate
+                    annotation.title = item.name
+                    annotation.subtitle = item.phoneNumber
+                    placeMarks.append(annotation)
+                }
+                self.mapView.removeAnnotations(self.mapView.annotations)
+                self.mapView.addAnnotations(placeMarks)
+            }else{
+                print("Deu erro: ", error!.localizedDescription)
+            }
+            searchBar.resignFirstResponder()
+        }
     }
 }
 
