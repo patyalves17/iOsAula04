@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -158,7 +159,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QxK-ZM-7IG" userLabel="ViewSinopse">
-                                <rect key="frame" x="0.0" y="325.5" width="320" height="242.5"/>
+                                <rect key="frame" x="0.0" y="325.5" width="320" height="193.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sinopse" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mqr-Vo-k6i">
                                         <rect key="frame" x="16" y="9" width="288" height="21"/>
@@ -174,7 +175,7 @@
                                         </variation>
                                     </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="...." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="azx-6d-eB6">
-                                        <rect key="frame" x="12" y="30" width="296" height="192.5"/>
+                                        <rect key="frame" x="12" y="30" width="296" height="143.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -252,12 +253,92 @@
             </objects>
             <point key="canvasLocation" x="2248" y="-603"/>
         </scene>
+        <!--Web View Controller-->
+        <scene sceneID="3uv-Bd-zal">
+            <objects>
+                <viewController storyboardIdentifier="WebViewController" id="ZRy-Sd-Fg0" customClass="WebViewController" customModule="MoviesLib" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="HsN-jz-ftF"/>
+                        <viewControllerLayoutGuide type="bottom" id="8lF-IG-bRH"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Do7-Kw-N2k">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PHs-SB-pfT">
+                                <rect key="frame" x="0.0" y="49" width="320" height="475"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </webView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cDE-A7-KEa">
+                                <rect key="frame" x="16" y="11" width="41" height="30"/>
+                                <state key="normal" title="Voltar"/>
+                            </button>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qUI-mZ-4rP">
+                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Ad6-fr-xEd"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem systemItem="rewind" id="6rD-bo-jQg">
+                                        <connections>
+                                            <action selector="goBack" destination="PHs-SB-pfT" id="fSx-ae-DFf"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="fc4-YS-eLQ"/>
+                                    <barButtonItem title="JS" id="Eno-eN-lyN">
+                                        <connections>
+                                            <action selector="runJS:" destination="ZRy-Sd-Fg0" id="dq6-IW-A5H"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="0se-RJ-nQ1"/>
+                                    <barButtonItem systemItem="fastForward" id="m5R-K2-mRY">
+                                        <connections>
+                                            <action selector="goForward" destination="PHs-SB-pfT" id="xVa-CE-K5V"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="MLs-zU-Jy2">
+                                <rect key="frame" x="142" y="266" width="37" height="37"/>
+                                <color key="color" red="0.43165513822216683" green="0.5554392196382687" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="DAg-gz-E1a">
+                                <rect key="frame" x="142" y="266" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="color" red="0.43165513820000001" green="0.55543921959999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="qUI-mZ-4rP" firstAttribute="top" secondItem="PHs-SB-pfT" secondAttribute="bottom" id="Khr-ks-OdM"/>
+                            <constraint firstItem="PHs-SB-pfT" firstAttribute="top" secondItem="cDE-A7-KEa" secondAttribute="bottom" constant="8" id="MIB-bB-gIg"/>
+                            <constraint firstAttribute="trailing" secondItem="qUI-mZ-4rP" secondAttribute="trailing" id="QSd-xW-cBF"/>
+                            <constraint firstItem="MLs-zU-Jy2" firstAttribute="centerY" secondItem="Do7-Kw-N2k" secondAttribute="centerY" id="SoW-4Z-TTv"/>
+                            <constraint firstAttribute="trailing" secondItem="PHs-SB-pfT" secondAttribute="trailing" id="XE3-17-DfZ"/>
+                            <constraint firstItem="cDE-A7-KEa" firstAttribute="top" secondItem="Do7-Kw-N2k" secondAttribute="topMargin" constant="11" id="gsL-q7-bQJ"/>
+                            <constraint firstItem="MLs-zU-Jy2" firstAttribute="centerX" secondItem="Do7-Kw-N2k" secondAttribute="centerX" id="jC1-8A-Ism"/>
+                            <constraint firstItem="8lF-IG-bRH" firstAttribute="top" secondItem="qUI-mZ-4rP" secondAttribute="bottom" id="pIL-7S-ezv"/>
+                            <constraint firstItem="cDE-A7-KEa" firstAttribute="leading" secondItem="Do7-Kw-N2k" secondAttribute="leadingMargin" id="pko-P3-BqK"/>
+                            <constraint firstItem="qUI-mZ-4rP" firstAttribute="leading" secondItem="Do7-Kw-N2k" secondAttribute="leading" id="qab-m2-DTM"/>
+                            <constraint firstItem="PHs-SB-pfT" firstAttribute="leading" secondItem="Do7-Kw-N2k" secondAttribute="leading" id="wJX-7a-mRy"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="loading" destination="DAg-gz-E1a" id="9fC-OC-wEe"/>
+                        <outlet property="webView" destination="PHs-SB-pfT" id="5av-UO-RqW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AVQ-ci-UPK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2730" y="266.19718309859155"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="qhA-8M-XR1">
             <objects>
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="ubG-3D-NMR" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="5xT-lw-KW1">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>

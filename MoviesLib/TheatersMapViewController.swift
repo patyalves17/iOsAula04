@@ -45,6 +45,9 @@ class TheatersMapViewController: UIViewController {
                     print("Em \(step.distance) metros, \(step.instructions)")
                 }
                 
+                self.mapView.add(route.polyline, level: .aboveRoads)
+                self.mapView.showAnnotations(self.mapView.annotations, animated: true)
+                
             }else{
                 print(error!.localizedDescription)
             }
@@ -78,7 +81,7 @@ class TheatersMapViewController: UIViewController {
             let coordinate = CLLocationCoordinate2D(latitude: theater.latitude, longitude: theater.longitude)
             let annotation = TheaterAnnotation(coordinate: coordinate)
             annotation.title = theater.name
-            annotation.subtitle = theater.address
+            annotation.subtitle = theater.url
             mapView.addAnnotation(annotation)
         }
         mapView.showAnnotations(mapView.annotations, animated: true)
@@ -180,9 +183,26 @@ extension TheatersMapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         if control == view.leftCalloutAccessoryView {
             print("Traça a rota ao cinema")
-            getRoute(destination: view.annotation!.coordinate) 
+            getRoute(destination: view.annotation!.coordinate)
+            
+            mapView.removeOverlays(mapView.overlays)
+            mapView.deselectAnnotation(view.annotation, animated: true)
         }else{
-            print("Mostra a rota ao cinema")
+            print("Mostra o site do cinema")
+            let vc = storyboard?.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
+            vc.url = view.annotation!.subtitle!
+            present(vc, animated: true, completion: nil)
+        }
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if overlay is MKPolyline {
+            let renderer = MKPolylineRenderer(overlay: overlay)
+            renderer.strokeColor = .blue
+            renderer.lineWidth = 6.0
+            return renderer
+        }else {
+            return MKOverlayRenderer(overlay: overlay)
         }
     }
 }

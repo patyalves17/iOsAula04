@@ -42,6 +42,7 @@
 		0778E3C01E88EECC00BF38C5 /* suicidesquad-wide.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0778E3A61E88EECC00BF38C5 /* suicidesquad-wide.jpg */; };
 		0778E3C11E88EECC00BF38C5 /* sully-small.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0778E3A71E88EECC00BF38C5 /* sully-small.jpg */; };
 		0778E3C21E88EECC00BF38C5 /* sully-wide.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0778E3A81E88EECC00BF38C5 /* sully-wide.jpg */; };
+		ACB557201F67618D00D0599B /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB5571F1F67618D00D0599B /* WebViewController.swift */; };
 		ACD97CE71F60ABE80099A837 /* theaters.xml in Resources */ = {isa = PBXBuildFile; fileRef = ACD97CE61F60ABE80099A837 /* theaters.xml */; };
 		ACD97CE91F60AD9E0099A837 /* TheatersMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD97CE81F60AD9E0099A837 /* TheatersMapViewController.swift */; };
 		ACD97CEB1F60AFA40099A837 /* Theater.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD97CEA1F60AFA40099A837 /* Theater.swift */; };
@@ -86,6 +87,7 @@
 		0778E3A61E88EECC00BF38C5 /* suicidesquad-wide.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "suicidesquad-wide.jpg"; sourceTree = "<group>"; };
 		0778E3A71E88EECC00BF38C5 /* sully-small.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "sully-small.jpg"; sourceTree = "<group>"; };
 		0778E3A81E88EECC00BF38C5 /* sully-wide.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "sully-wide.jpg"; sourceTree = "<group>"; };
+		ACB5571F1F67618D00D0599B /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		ACD97CE61F60ABE80099A837 /* theaters.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = theaters.xml; sourceTree = "<group>"; };
 		ACD97CE81F60AD9E0099A837 /* TheatersMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheatersMapViewController.swift; sourceTree = "<group>"; };
 		ACD97CEA1F60AFA40099A837 /* Theater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theater.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 				0703AD961E8553B2001FB5FD /* MoviesTableViewController.swift */,
 				0778E3701E88D4DA00BF38C5 /* MovieTableViewCell.swift */,
 				07780D501E6D860E00BC3630 /* Main.storyboard */,
+				ACB5571F1F67618D00D0599B /* WebViewController.swift */,
 				07780D531E6D860E00BC3630 /* Assets.xcassets */,
 				07780D551E6D860E00BC3630 /* LaunchScreen.storyboard */,
 				07780D581E6D860E00BC3630 /* Info.plist */,
@@ -280,6 +283,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0778E3711E88D4DB00BF38C5 /* MovieTableViewCell.swift in Sources */,
+				ACB557201F67618D00D0599B /* WebViewController.swift in Sources */,
 				0703AD971E8553B2001FB5FD /* MoviesTableViewController.swift in Sources */,
 				ACD97CED1F60BCCA0099A837 /* TheaterAnnotation.swift in Sources */,
 				07780D4F1E6D860E00BC3630 /* MovieViewController.swift in Sources */,
