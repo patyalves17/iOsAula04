@@ -53,7 +53,7 @@ class WebViewController: UIViewController {
     }
     */
 
-}
+}  
 
 extension WebViewController: UIWebViewDelegate{
     func webViewDidFinishLoad(_ webView: UIWebView){
