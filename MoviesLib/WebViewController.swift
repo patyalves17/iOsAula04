@@ -18,6 +18,7 @@ class WebViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        loading.hidesWhenStopped = true
         loading.startAnimating()
         webView.delegate = self
         
@@ -34,10 +35,13 @@ class WebViewController: UIViewController {
     }
     
     @IBAction func runJS(_ sender: Any) {
-        
+        webView.stringByEvaluatingJavaScript(from: "alert('Rodando Javascript ma webView')")
     }
     
    
+    @IBAction func close(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
 
     /*
     // MARK: - Navigation
@@ -54,6 +58,17 @@ class WebViewController: UIViewController {
 extension WebViewController: UIWebViewDelegate{
     func webViewDidFinishLoad(_ webView: UIWebView){
         loading.stopAnimating()
-       
+    }
+    
+    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        print(request.url!.absoluteString)
+        
+        let absoluteString = request.url!.absoluteString
+        
+        if absoluteString.range(of: "facebook") != nil {
+            return false
+        }
+        
+        return true
     }
 }
