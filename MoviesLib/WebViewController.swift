@@ -66,6 +66,19 @@ extension WebViewController: UIWebViewDelegate{
         let absoluteString = request.url!.absoluteString
         
         if absoluteString.range(of: "facebook") != nil {
+            
+            let alert = UIAlertController(title: "Error", message: "Facebook esta proibido nesse App", preferredStyle: .actionSheet)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler:{(action) in
+                print("O usuario clicou OK")
+            })
+            
+            let cancelAlert = UIAlertAction(title: "cancelar", style: .default, handler: nil)
+
+            alert.addAction(okAction)
+            alert.addAction(cancelAlert)
+            
+            present(alert, animated: true, completion: nil)
+            
             return false
         }
         
